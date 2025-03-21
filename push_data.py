@@ -95,12 +95,22 @@ class NetworkDataExtract():
             raise NetworkSecurityException(e, sys)
 
 
-if __name__ == '__main__':
-    FILE_PATH = "Network_Data\Phishing_Legitimate_full.csv"
-    DATABASE = "MahimaShetty"
-    Collection = "NetworkData"
+if __name__ == '__main__':  # Ensures the script runs only when executed directly, not when imported
+    FILE_PATH = "Network_Data\Phishing_Legitimate_full.csv"  # Path to the CSV file containing network data
+    
+    DATABASE = "MahimaShetty"  # Name of the MongoDB database
+    Collection = "NetworkData"  # Name of the MongoDB collection
+
+    # Creating an instance of the NetworkDataExtract class
     networkobj = NetworkDataExtract()
+
+    # Converting CSV data into JSON records
     records = networkobj.cv_to_json_converter(file_path=FILE_PATH)
-    no_of_records=networkobj.insert_data_mongodb(records, DATABASE, Collection)
+
+    # Inserting the converted records into the MongoDB collection
+    no_of_records = networkobj.insert_data_mongodb(records, DATABASE, Collection)
+
+    # Printing the number of records successfully inserted into MongoDB
     print(no_of_records)
+
     
